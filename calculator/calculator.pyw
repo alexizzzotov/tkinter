@@ -28,18 +28,26 @@ def clear2():
     text1.delete(len(n)-1)
 
 def sqrt():
-    s = int(text1.get())
-    f = math.sqrt(s)
-    clear()
-    text1.insert(0, f)
+    try:
+        s = int(text1.get())
+        f = math.sqrt(s)
+        clear()
+        text1.insert(0, f)
+    except Exception:
+        clear()
+        text1.insert(0, 'Ошибка')
     
 def factorial():
-    s = int(text1.get())
-    f = 1
-    for i in range(1, s+1):
-        f*=i
-    clear()
-    text1.insert(0, f)
+    try:
+        s = int(text1.get())
+        f = 1
+        for i in range(1, s+1):
+            f*=i
+            clear()
+            text1.insert(0, f)
+    except Exception:
+        clear()
+        text1.insert(0, 'Ошибка')
 
 def eq():
     s = text1.get()
