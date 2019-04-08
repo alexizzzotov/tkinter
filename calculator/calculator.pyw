@@ -1,5 +1,6 @@
 from tkinter import *
 import math
+
 root=Tk()
 root.title('Калькулятор')
 
@@ -8,11 +9,11 @@ root.resizable(0,0)
 frame1 = Frame(root)
 frame1.pack(side=TOP, pady=5)
 
-frame2 = Frame(root)
-frame2.pack(side=LEFT, anchor=N, pady=5, padx=5)
-
 text1=Entry(frame1, font='Arial 30', justify='right', bd=20, insertwidth=-1)
 text1.pack(side=RIGHT, anchor=N)
+
+frame2 = Frame(root)
+frame2.pack(side=LEFT, anchor=N, pady=5, padx=5)
 
 #functions
 
@@ -22,18 +23,46 @@ def number_button(num):
 def clear():
     text1.delete(0,END)
 
+def clear2():
+    n = text1.get()
+    text1.delete(len(n)-1)
+
+def sqrt():
+    s = int(text1.get())
+    f = math.sqrt(s)
+    clear()
+    text1.insert(0, f)
+    
+def factorial():
+    s = int(text1.get())
+    f = 1
+    for i in range(1, s+1):
+        f*=i
+    clear()
+    text1.insert(0, f)
+
+def eq():
+    s = text1.get()
+    try:
+        result = eval(s)
+        clear()
+        text1.insert(0, result)
+    except Exception:
+        clear()
+        text1.insert(0, 'Ошибка')
+
 #1 ряд
 
-b_n = Button(frame2, text='n!', width=3, bd=8, fg="blue",font='Arial 30')
+b_n = Button(frame2, text='n!', width=3, bd=8, fg="blue",font='Arial 30', command=factorial)
 b_n.grid(row =1, column = 1)
-#clear
+
 b_ce = Button(frame2, text='CE', width=3, bd=8, fg="blue",font='Arial 30', command=clear)
 b_ce.grid(row =1, column = 2)
 
-b_c = Button(frame2, text='C', width=3, bd=8, fg="blue",font='Arial 30')
+b_c = Button(frame2, text='C', width=3, bd=8, fg="blue",font='Arial 30', command=clear2)
 b_c.grid(row =1, column = 3)
 
-b_sqrt = Button(frame2, text='sqrt', width=3, bd=8, fg="blue",font='Arial 30')
+b_sqrt = Button(frame2, text='sqrt', width=3, bd=8, fg="blue",font='Arial 30', command=sqrt)
 b_sqrt.grid(row =1, column = 4)
 
 b_exp = Button(frame2, text='^', width=3, bd=8, fg="blue",font='Arial 30', command = lambda : number_button('**'))
@@ -87,7 +116,7 @@ b_3.grid(row =4, column = 3)
 b_minus = Button(frame2, text='-', width=3, bd=8, fg="blue",font='Arial 30', command = lambda : number_button('-'))
 b_minus.grid(row =4, column = 4)
 
-b_eq = Button(frame2, text='=', width=3, height=3, bd=8, fg="blue",font='Arial 30', command = lambda : number_button('='))
+b_eq = Button(frame2, text='=', width=3, height=3, bd=8, fg="blue",font='Arial 30', command=eq)
 b_eq.grid(row =4, column = 5, rowspan=2)
 
 #5 ряд
